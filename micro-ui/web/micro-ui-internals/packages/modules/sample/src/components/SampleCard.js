@@ -57,9 +57,14 @@ const SampleCard = () => {
         link: `/${window?.contextPath}/employee/sample/create-sor`,
       },
       {
-        label:t("Create Contract"),
-        link: `/${window?.contextPath}/employee/sample/create-contract`,
-      }
+        label:t("SOR search"),
+        link: `/${window?.contextPath}/employee/sample/search-sor`,
+      },
+      // {
+      //   label:t("Create Contract"),
+      //   link: `/${window?.contextPath}/employee/sample/create-contract`,
+      // },
+      
       
     ],
   };
