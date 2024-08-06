@@ -1,17 +1,20 @@
-import React from "react";
+import React,{ useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { FormComposerV2, Header } from "@egovernments/digit-ui-react-components";
+import { FormComposerV2, Header ,Toast} from "@egovernments/digit-ui-react-components";
 import { formConfig } from "../../configs/SorCreateConfig";
-import { transformCreateData } from "../../utils/createUtils";
+import { transformCreateEstimateData } from "../../utils/createEstimateUtils";
+import Slider from "../../components/Slider";
 
 const SorCreate = () => {
-    debugger;
+    
     const tenantId = Digit.ULBService.getCurrentTenantId();
     const { t } = useTranslation();
+    const [toast, setToast] = useState({ show: false, error: false, message: "" });
     const history = useHistory();
+    const [formKey, setFormKey] = useState(0);
     const reqCreate = {
-        url: `/sor/v1/_create`,   //CAL
+        url:`/mdms-v2/v2/_create/digitAssignment.estimate`,   //CAL
         params: {},
         body: {},
         config: {
@@ -25,19 +28,31 @@ const SorCreate = () => {
         console.log(data, "data");
         await mutation.mutate(
             {
-                url: `/sor/v1/_create`,   //CAL
-                params: { tenantId },
-                body: transformCreateData(data),
+                url: `/mdms-v2/v2/_create/digitAssignment.estimate`,   //CAL
+                params: {},
+                body: transformCreateEstimateData(data),
                 config: {
                     enable: true,
                 },
             },
+            {
+                onSuccess: () => {
+                  setToast({ show: true, error: false, message: t("Create Estimate Sucess") });
+                  // logic to clear data
+                  setFormKey(prevkey => prevkey + 1)
+                },
+                onError: () => {
+                  setToast({ show: true, error: true, message: t("Create Estimate Failure") });
+                },
+              }
         );
     };
 
     return (
         <div>
-            {console.log("sor create triggered")}
+            <Slider/>
+            {/* {console.log("sor create triggered")} */}
+            <div>
             <Header> {t("CREATE_SOR")}</Header>
             <FormComposerV2                                //important
                 label={t("SUBMIT_BUTTON")}
@@ -53,6 +68,14 @@ const SorCreate = () => {
                 onSubmit={(data,) => onSubmit(data,)}
                 fieldStyle={{ marginRight: 0 }}
             />
+            {toast.show && 
+            <Toast 
+              error={toast.error} 
+              label={toast.message} 
+              onClose={() => setToast({ show: false, error: false, message: "" })}
+              isDleteBtn={true}
+            />}
+            </div>
 
         </div>
     );
