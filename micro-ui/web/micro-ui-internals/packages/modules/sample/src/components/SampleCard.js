@@ -64,6 +64,10 @@ const SampleCard = () => {
         label:t("Create Contract"),
         link: `/${window?.contextPath}/employee/sample/create-contract`,
       },
+      {
+        label:t("Slider"),
+        link: `/${window?.contextPath}/employee/sample/slider`,
+      },
       
       
       

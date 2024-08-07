@@ -50,7 +50,7 @@ const SorCreate = () => {
 
     return (
         <div>
-            <Slider/>
+            {/* <Slider/> */}
             {/* {console.log("sor create triggered")} */}
             <div>
             <Header> {t("CREATE_SOR")}</Header>
