@@ -19,6 +19,7 @@ import PanelCardResponse from "./PanelCardResponse";
 import TabIndividualSearch from "./TabIndividualSearch";
 import IndividualViewDetails from "./IndividualViewDetails";
 import SorView from "./SorView";
+import SliderSample from "./SliderSample";
 
 const ProjectBreadCrumb = ({ location }) => {
   const { t } = useTranslation();
@@ -61,6 +62,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/individual-details-view`} component={() => <IndividualViewDetails />} />
         <PrivateRoute path={`${path}/create-contract`} component={() => <ContractCreate />} />
         <PrivateRoute path={`${path}/view-sor`} component={() => <SorView />} />
+        <PrivateRoute path={`${path}/slider`} component={()=><SliderSample/>}/>
 
       </AppContainer>
     </Switch>
